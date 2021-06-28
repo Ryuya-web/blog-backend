@@ -9,3 +9,8 @@ User.create!(
     email: 'ryuya00617@gmail.com',
     password: 'password'
  )
+
+ Post.create!(
+    title: 'ryuya00617@gmail.com',
+    content: 'password'
+ )

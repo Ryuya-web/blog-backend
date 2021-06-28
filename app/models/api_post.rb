@@ -1,0 +1,2 @@
+class ApiPost < ApplicationRecord
+end
