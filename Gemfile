@@ -63,3 +63,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'devise'
 gem 'redcarpet'
 gem 'jquery-rails'
+gem 'jquery-turbolinks'

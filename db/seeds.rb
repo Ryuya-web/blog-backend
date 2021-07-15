@@ -11,6 +11,6 @@ User.create!(
  )
 
  Post.create!(
-    title: 'ryuya00617@gmail.com',
-    content: 'password'
+    title: 'aaaaaa',
+    content: 'aaaaaaa'
  )
