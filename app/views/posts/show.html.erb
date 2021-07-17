@@ -12,7 +12,19 @@
 
 <p>
   <strong>Thumbnail image:</strong>
-  <%= @post.thumbnail_image %>
+  <% if @post.thumbnail_image.attached? %>
+    <%= image_tag @post.thumbnail_image, size: '100x100' %>
+  <% end %>
+  <div>画像</div>
+  <% if @post.images.attached? %>
+    <% @post.images.each do |image| %>
+      <%= image_tag image, size: '100x100' %> 
+      <br>
+      <br>
+      <br>
+      <%= url_for(image) %>
+    <% end %>
+  <% end %>
 </p>
 <%= markdown(@post.content) %>
 

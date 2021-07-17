@@ -3,13 +3,17 @@
   <%= f.text_field :title %>
   <div class="code-block">
     <div>内容</div>
-    <%= f.text_area :content, id: 'content' %>
+    <%= f.text_area :content, class: "inline-attachment", id: 'content', size: "100x50"  %>
   </div>
   <div class="code-block">
     <div>表示される内容</div>
     <div id="code_markdown"></div>   <%# ここにMarkdownに変換された入力内容が入る %>
   </div>
 ...
+  <div>サムネイル画像</div>
+   <%= f.file_field :thumbnail_image %><br>
+  <div>画像</div>
+   <%= f.file_field :images, multiple: true  %><br>
   <%= f.submit %>
 <% end %>
 <%= link_to 'Show', @post %> |
