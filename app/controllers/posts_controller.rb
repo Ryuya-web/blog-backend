@@ -15,6 +15,8 @@ class PostsController < ApplicationController
   # GET /posts/new
   def new
     @post = Post.new
+    @image = Image.new
+    @image_new = Image.find(1)
   end
 
   # GET /posts/1/edit

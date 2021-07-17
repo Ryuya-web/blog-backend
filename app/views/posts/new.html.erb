@@ -16,6 +16,15 @@
    <%= f.file_field :images, multiple: true  %><br>
   <%= f.submit %>
 <% end %>
+<%= form_with model: @image, id: 'form1', data: {remote: true} do |f| %>
+  <div>画像</div>
+   <%= f.file_field :images, multiple: true, id: 'file' %><br>
+<% end %>
+
+  <div>画像</div>
+  <% @image_new.images.each do |image| %>
+    <%= url_for(image) %>
+  <% end %>
 <%= link_to 'Show', @post %> |
 <%= link_to 'Back', posts_path %>
 
@@ -49,4 +58,8 @@ $(document).on('turbolinks:load', function() {　
   markdownCode();
 });
 window.addEventListener("load", markdownCode);
+
+document.getElementById("file").onchange = function() {
+    document.getElementById("form1").submit();
+};
 </script>
