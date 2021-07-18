@@ -1,34 +1,40 @@
-<%= form_with model: @post, local: true do |f| %>
+<%= form_with model: @post, id: 'form2', local: true do |f| %>
   <div>タイトル</div>
-  <%= f.text_field :title %>
+  <%= f.text_field :title,id: 'title',value: @post_title, onkeyup: "inputCheck2()" %>
   <div class="code-block">
     <div>内容</div>
-    <%= f.text_area :content, class: "inline-attachment", id: 'content', size: "100x50"  %>
+    <%= f.text_area :content,id: 'content',value: @post_content ,size: "100x50", onkeyup: "inputCheck3()"  %>
   </div>
   <div class="code-block">
     <div>表示される内容</div>
-    <div id="code_markdown"></div>   <%# ここにMarkdownに変換された入力内容が入る %>
+    <div id="code_markdown"></div> <%# ここにMarkdownに変換された入力内容が入る %>
   </div>
 ...
   <div>サムネイル画像</div>
    <%= f.file_field :thumbnail_image %><br>
-  <div>画像</div>
-   <%= f.file_field :images, multiple: true  %><br>
   <%= f.submit %>
 <% end %>
-<%= form_with model: @image, id: 'form1', data: {remote: true} do |f| %>
+
+<%= form_with model: @image, id: 'form1', local: true do |f| %>
   <div>画像</div>
    <%= f.file_field :images, multiple: true, id: 'file' %><br>
+   <%= hidden_field_tag :title, "", {id: 'check2'} %>
+   <%= hidden_field_tag :content, "", {id: 'check3'} %>
 <% end %>
-
-  <div>画像</div>
-  <% @image_new.images.each do |image| %>
+  <div>画像url生成</div>
+  <% if @image_new.present? && @image_new.images.attached? %>
+    <% @image_new.images.each do |image| %>
     <%= url_for(image) %>
   <% end %>
+  <% end %>
+<br>
+<%= @image_tag %>
+<br>
 <%= link_to 'Show', @post %> |
 <%= link_to 'Back', posts_path %>
 
 <script>
+
 function markdownCode() {
   const codeInput = document.getElementById('content');  // idが'user_answer_code'のもの(textarea)
   const codeMarkdown = document.getElementById('code_markdown');  // idが'code_markdown'のもの(空のdiv)
@@ -62,4 +68,12 @@ window.addEventListener("load", markdownCode);
 document.getElementById("file").onchange = function() {
     document.getElementById("form1").submit();
 };
+function inputCheck3() {
+  var inputValue = document.getElementById( "content" ).value;
+  document.getElementById( "check3" ).value = inputValue;
+}
+function inputCheck2() {
+  var inputValue = document.getElementById( "title" ).value;
+  document.getElementById( "check2" ).value = inputValue;
+}
 </script>

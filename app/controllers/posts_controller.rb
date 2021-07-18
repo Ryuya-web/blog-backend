@@ -16,7 +16,12 @@ class PostsController < ApplicationController
   def new
     @post = Post.new
     @image = Image.new
-    @image_new = Image.find(1)
+    @image_tag = '<img src="" width="200">'
+    if Image.count != 0
+      @image_new = Image.find(Image.count)
+    end
+    @post_title = params[:title]
+    @post_content = params[:content]
   end
 
   # GET /posts/1/edit
@@ -26,6 +31,7 @@ class PostsController < ApplicationController
   # POST /posts or /posts.json
   def create
     @post = Post.new(post_params)
+    @post.publised_on = Time.current
 
     respond_to do |format|
       if @post.save
