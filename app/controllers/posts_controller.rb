@@ -18,7 +18,7 @@ class PostsController < ApplicationController
     @image = Image.new
     @image_tag = '<img src="" width="200">'
     if Image.count != 0
-      @image_new = Image.find(Image.count)
+      @image_new = Image.order(created_at: :desc).first
     end
     @post_title = params[:title]
     @post_content = params[:content]
@@ -26,6 +26,14 @@ class PostsController < ApplicationController
 
   # GET /posts/1/edit
   def edit
+    @image = Image.new
+    @image_tag = '<img src="" width="200">'
+    if Image.count != 0
+      @image_new = Image.find(Image.count)
+    end
+    @post = Post.find(params[:id])
+    @post.title = params[:title]
+    @post.content = params[:content]
   end
 
   # POST /posts or /posts.json

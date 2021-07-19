@@ -3,9 +3,15 @@ class ImagesController < ApplicationController
         @image = Image.new
         @image_new = Image.new(image_params)
         if @image_new.save
-          @image_new = Image.find(Image.count)
-          @image_tag = '<a href="http://example.com">book store</a>'
-          redirect_to new_post_path(title: params["title"], content: params["content"])
+          if Image.count != 0
+            @image_new = Image.order(created_at: :desc).first
+          end
+          @image_tag = '<img src="" width="200">'
+          if params["post_id"].present?
+            redirect_to edit_post_path(id: params["post_id"], title: params["title"], content: params["content"])
+          else
+            redirect_to new_post_path(title: params["title"], content: params["content"])
+          end
         end
     end
 

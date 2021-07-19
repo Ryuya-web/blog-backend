@@ -66,3 +66,4 @@ gem 'jquery-rails'
 gem "aws-sdk-s3", '~>1', require: false
 gem 'cloudinary', require: false
 gem 'activestorage-cloudinary-service'
+gem 'bootstrap', '~> 4.1.1'

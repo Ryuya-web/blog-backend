@@ -1,43 +1,21 @@
 <p id="notice"><%= notice %></p>
-
-<p>
+<div class = "row">
+<div class = "col-8 offset-2">
   <strong>Title:</strong>
   <%= @post.title %>
-</p>
-
-<p>
+</div>
+<div class ="col-8 offset-2">
   <strong>Content:</strong>
-  <%= @post.content %>
-</p>
-
-<p>
-  <strong>Thumbnail image:</strong>
+  <%= markdown(@post.content) %>
+</div>
+<div class ="col-8 offset-2">
+  <strong>Thumbnail image:</strong><br>
   <% if @post.thumbnail_image.attached? %>
     <%= image_tag @post.thumbnail_image, size: '100x100' %>
   <% end %>
-  <div>画像</div>
-  <% if @post.images.attached? %>
-    <% @post.images.each do |image| %>
-      <%= image_tag image, size: '100x100' %> 
-      <br>
-      <br>
-      <br>
-      <%= url_for(image) %>
-    <% end %>
-  <% end %>
-</p>
-<%= markdown(@post.content) %>
-
-<input type="text" id="sample">
-<div id="output"></div>
-
-<%= link_to 'Edit', edit_post_path(@post) %> |
-<%= link_to 'Back', posts_path %>
-
-<script>
-$(function() {
-    $(document).on('input', '#sample', function(e) {
-        $('#output').text($('#sample').val());
-    });
-});
-</script>
+</div>
+<div class ="col-8 offset-2">
+  <%= link_to 'Edit', edit_post_path(@post) %> |
+  <%= link_to 'Back', posts_path %>
+</div>
+</div>

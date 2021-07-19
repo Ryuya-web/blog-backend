@@ -1,18 +1,29 @@
 <%= form_with model: @post, id: 'form2', local: true do |f| %>
+<div class="row">	
+<div class = "col-12">
   <div>タイトル</div>
   <%= f.text_field :title,id: 'title',value: @post_title, onkeyup: "inputCheck2()" %>
+</div>
+<div class = "col-lg-6 col-xs-12　text-area" style="height:820px;">
   <div class="code-block">
     <div>内容</div>
-    <%= f.text_area :content,id: 'content',value: @post_content ,size: "100x50", onkeyup: "inputCheck3()"  %>
+    <%= f.text_area :content,id: 'content',value: @post_content , onkeyup: "inputCheck3()",  style: "min-width: 100%" %>
   </div>
+</div>
+<div class = "col-lg-6 col-xs-12">
   <div class="code-block">
     <div>表示される内容</div>
     <div id="code_markdown"></div> <%# ここにMarkdownに変換された入力内容が入る %>
   </div>
-...
+</div>
+<div class = "col-12">
   <div>サムネイル画像</div>
-   <%= f.file_field :thumbnail_image %><br>
+   <%= f.file_field :thumbnail_image %>
+</div>
+<div class = "col-12">
   <%= f.submit %>
+</div>
+</div>
 <% end %>
 
 <%= form_with model: @image, id: 'form1', local: true do |f| %>
@@ -24,7 +35,7 @@
   <div>画像url生成</div>
   <% if @image_new.present? && @image_new.images.attached? %>
     <% @image_new.images.each do |image| %>
-    <%= url_for(image) %>
+    <p>https://koddaku-backend.herokuapp.com<%= url_for(image) %></p>
   <% end %>
   <% end %>
 <br>
@@ -77,3 +88,11 @@ function inputCheck2() {
   document.getElementById( "check2" ).value = inputValue;
 }
 </script>
+<style>
+textarea { 
+   height: 798px;
+}
+.textarea{
+  height: 500px;
+}
+</style>

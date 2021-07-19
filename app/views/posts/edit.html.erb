@@ -1,21 +1,52 @@
-<%= form_with model: @post, local: true do |f| %>
+<%= form_with model: @post, id: 'form2', local: true do |f| %>
+<div class="row">	
+<div class = "col-12">
   <div>タイトル</div>
-  <%= f.text_field :title, placeholder: "#{@post.title}" %>
+  <%= f.text_field :title,id: 'title',value: @post.title, onkeyup: "inputCheck2()" %>
+</div>
+<div class = "col-lg-6 col-xs-12　text-area" style="height:820px;">
   <div class="code-block">
     <div>内容</div>
-    <%= f.text_area :content, id: 'content', placeholder: "#{@post.content}" %>
+    <%= f.text_area :content,id: 'content',value: @post.content , onkeyup: "inputCheck3()",  style: "min-width: 100%" %>
   </div>
+</div>
+<div class = "col-lg-6 col-xs-12">
   <div class="code-block">
     <div>表示される内容</div>
-    <div id="code_markdown"></div>   <%# ここにMarkdownに変換された入力内容が入る %>
+    <div id="code_markdown"></div> <%# ここにMarkdownに変換された入力内容が入る %>
   </div>
-...
+</div>
+<div class = "col-12">
+  <div>サムネイル画像</div>
+   <%= f.file_field :thumbnail_image %>
+</div>
+<div class = "col-12">
   <%= f.submit %>
+</div>
+</div>
 <% end %>
+
+<%= form_with model: @image, id: 'form1', local: true do |f| %>
+  <div>画像</div>
+   <%= f.file_field :images, multiple: true, id: 'file' %><br>
+   <%= hidden_field_tag :title, "", {id: 'check2'} %>
+   <%= hidden_field_tag :content, "", {id: 'check3'} %>
+   <%= hidden_field_tag :post_id, @post.id %>
+<% end %>
+  <div>画像url生成</div>
+  <% if @image_new.present? && @image_new.images.attached? %>
+    <% @image_new.images.each do |image| %>
+    <%= url_for(image) %>
+  <% end %>
+  <% end %>
+<br>
+<%= @image_tag %>
+<br>
 <%= link_to 'Show', @post %> |
 <%= link_to 'Back', posts_path %>
 
 <script>
+
 function markdownCode() {
   const codeInput = document.getElementById('content');  // idが'user_answer_code'のもの(textarea)
   const codeMarkdown = document.getElementById('code_markdown');  // idが'code_markdown'のもの(空のdiv)
@@ -33,6 +64,7 @@ function markdownCode() {
   });
 };
 $(document).on('turbolinks:load', function() {　
+  alert (aaaa);
   const codeInput = document.getElementById('content');  // idが'content'のもの(textarea)
   const codeMarkdown = document.getElementById('code_markdown');
   const HTML = `${codeInput.value}`;
@@ -43,4 +75,25 @@ $(document).on('turbolinks:load', function() {　
   }
   markdownCode();
 });
+window.addEventListener("load", markdownCode);
+
+document.getElementById("file").onchange = function() {
+    document.getElementById("form1").submit();
+};
+function inputCheck3() {
+  var inputValue = document.getElementById( "content" ).value;
+  document.getElementById( "check3" ).value = inputValue;
+}
+function inputCheck2() {
+  var inputValue = document.getElementById( "title" ).value;
+  document.getElementById( "check2" ).value = inputValue;
+}
 </script>
+<style>
+textarea { 
+   height: 798px;
+}
+.textarea{
+  height: 500px;
+}
+</style>
